@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import Main from './Main'
+import router from "./router"
 
 $(document).on('ready', function() {
   $.ajaxSetup({
@@ -9,6 +9,6 @@ $(document).on('ready', function() {
   });
 
   //ReactDOM.render(, document.getElementById('react-helper'));
-  ReactDOM.render(<Main />, document.getElementById('react-wrapper'));
+  ReactDOM.render(router, document.getElementById('react-wrapper'));
 });
 

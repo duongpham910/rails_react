@@ -4,14 +4,24 @@ import theme from "./theme";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class Main extends React.Component{
+
+  renderMainContent() {
+    return (
+      <div className="main-layout">
+        <Header/>
+        <div className="main-content">
+          {this.props.children}
+        </div>
+      </div>
+    )
+  }
+
   render(){
 
     return(
       <MuiThemeProvider muiTheme={theme}>
         <div>
-          <Header/>
-          <h1>Todo list</h1>
-          <Task/>
+          {this.renderMainContent()}
         </div>
       </MuiThemeProvider>
     );
