@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :tasks, only: :index
   end
+
+  get "*path", to: "root#home"  #redirect all your request to single page
 end

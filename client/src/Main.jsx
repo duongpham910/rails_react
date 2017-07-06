@@ -9,8 +9,10 @@ export default class Main extends React.Component{
     return (
       <div className="main-layout">
         <Header/>
-        <div className="main-content">
-          {this.props.children}
+        <div className="main-area-w195">
+          <div className="main-content">
+            {this.props.children}
+          </div>
         </div>
       </div>
     )

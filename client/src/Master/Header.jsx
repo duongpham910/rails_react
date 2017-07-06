@@ -1,10 +1,19 @@
 import React from "react"
 import {browserHistory, Link} from 'react-router';
+import Drawer from "material-ui/Drawer";
+import MenuItem from 'material-ui/MenuItem';
+import Menu from 'material-ui/Menu';
+
 
 export default class Header extends React.Component{
   constructor(props) {
     super(props);
+    this.state = {open: true};
   }
+
+  handleTouchMenu = (e, menuItem) => {
+    this.transitionTo(menuItem.props.value);
+  };
 
   transitionTo(pathName, state = {}) {
     let location = {pathname: pathName};
@@ -12,24 +21,50 @@ export default class Header extends React.Component{
     browserHistory.push(location);
   }
 
-  render() {
+  getCurrentPath() {
+    return browserHistory.getCurrentLocation().pathname;
+  }
+
+  renderMenuItem(item, transitionTo, icon, isCustomIcon) {
+    let isActive;
+    isActive = (this.getCurrentPath() + '/').search(item + '/') !== -1;
+    let menuItemIcon = isCustomIcon ?
+      <i className={icon + (isActive ? '-active' : '')}/> :
+      <i className="material-icons">{icon}</i>;
     return (
-      <nav className="navbar navbar-inverse">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <a className="navbar-brand" href="#">WebSiteName</a>
+      <MenuItem
+        title={item}
+        className={'drawer-item ' + (isActive ? 'active-item' : 'normal-item')}
+        innerDivStyle={this.props.collapsed ? {} : {paddingLeft: "50px"}}
+        primaryText={item}
+        leftIcon={menuItemIcon}
+        value={transitionTo}
+      />
+    );
+  }
+
+  render() {
+    let drawerClass = this.props.collapsed ? 'drawer-close' : 'drawer-open';
+    return (
+      <div>
+        <mui.Drawer open={true} width={190} className="app-drawer">
+        <div className={drawerClass}>
+          <div className="logo-wrapper pointer">
+            <div className="logo" onClick={() => Helper.transitionTo("/")}>
+              <img src="/images/logo.png" width="140" height="40"/>
+            </div>
           </div>
-          <ul className="nav navbar-nav">
-            <li className="active"><a href="#">Home</a></li>
-            <li><Link to={"task"}>task</Link></li>
-            <li><Link to={"about"}>about</Link></li>
-          </ul>
-          <ul className="nav navbar-nav navbar-right">
-            <li><a href="#"><span className="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
-          </ul>
+          <mui.Menu
+            onItemTouchTap={this.handleTouchMenu}
+            className="default-cursor"
+          >
+            {this.renderMenuItem('Home','/','home')}
+            {this.renderMenuItem('Task','/task','work')}
+            {this.renderMenuItem('About','/about','favorite')}
+          </mui.Menu>
         </div>
-      </nav>
-    )
+      </mui.Drawer>
+      </div>
+    );
   }
 }
