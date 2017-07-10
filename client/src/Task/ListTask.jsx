@@ -8,8 +8,14 @@ export default class Task extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-
+      tasks: [],
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      tasks: nextProps.tasks
+    });
   }
 
   render() {
@@ -22,12 +28,15 @@ export default class Task extends React.Component{
           <TableRowColumn>{task.title}</TableRowColumn>
           <TableRowColumn>{task.description}</TableRowColumn>
           <TableRowColumn>{task.due_date}</TableRowColumn>
-          <TableRowColumn>{task.completed}</TableRowColumn>
+          <TableRowColumn>{task.completed == 1 ?
+            <div className="badge-custom completed">completed</div> :
+            <div className="badge-custom in-progess">in-progess</div>}
+          </TableRowColumn>
         </TableRow>
       );
     })
     return (
-        <Table>
+        <Table className="tblTask">
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn>{"Task name"}</TableHeaderColumn>
