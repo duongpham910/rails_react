@@ -3,6 +3,8 @@ import router from "./router"
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
+global.API = require("./API");
+
 $(document).on('ready', function() {
   $.ajaxSetup({
     headers: {
