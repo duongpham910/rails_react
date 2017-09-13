@@ -25,12 +25,13 @@ export default class Task extends React.Component{
     let tableItems = tasks.map(function(task, idx) {
       return (
         <TableRow key={idx}>
+          <TableRowColumn>{task.status}</TableRowColumn>
           <TableRowColumn>{task.title}</TableRowColumn>
           <TableRowColumn>{task.description}</TableRowColumn>
           <TableRowColumn>{task.due_date}</TableRowColumn>
-          <TableRowColumn>{task.completed == 1 ?
-            <div className="badge-custom completed">completed</div> :
-            <div className="badge-custom in-progess">in-progess</div>}
+          <TableRowColumn>{task.estimate_time}</TableRowColumn>
+          <TableRowColumn>
+            <div className={"badge-custom " + task.priority.toLowerCase()}>{task.priority}</div>
           </TableRowColumn>
         </TableRow>
       );
@@ -39,10 +40,12 @@ export default class Task extends React.Component{
         <Table className="tblTask">
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
+              <TableRowColumn>{"Status"}</TableRowColumn>
               <TableHeaderColumn>{"Task name"}</TableHeaderColumn>
               <TableHeaderColumn>{"Description"}</TableHeaderColumn>
               <TableHeaderColumn>{"Due date"}</TableHeaderColumn>
-              <TableRowColumn>{"Completed"}</TableRowColumn>
+              <TableHeaderColumn>{"Estimate time"}</TableHeaderColumn>
+              <TableHeaderColumn>{"Priority"}</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
