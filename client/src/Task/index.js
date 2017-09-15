@@ -1,5 +1,10 @@
 import React from "react"
 import ListTask from "./ListTask"
+import RaisedButton from 'material-ui/RaisedButton';
+
+const style = {
+  margin: 12,
+};
 
 export default class Task extends React.Component{
   constructor(props) {
@@ -26,7 +31,10 @@ export default class Task extends React.Component{
     let stateObject = this.state.tasks
     return(
       <div>
-        <ListTask tasks={stateObject} />
+        <RaisedButton label="Primary" primary={true}/>
+        <div>
+          <ListTask tasks={stateObject} />
+        </div>
       </div>
     );
   }

@@ -1,0 +1,22 @@
+.task-container {
+  margin: 25px;
+}
+
+.form-task {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  margin-top: 6px;
+  padding: 15px;
+
+  .sub-field {
+    margin: 15px 0;
+  }
+
+
+}
+
+label.small-label {
+  font-size: 11px;
+  color: #0b2096;
+  margin-bottom: 0px;
+}
