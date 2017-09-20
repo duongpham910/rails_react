@@ -3,6 +3,7 @@ import {
   TableRow, TableRowColumn
 } from "material-ui/Table"
 import React from "react"
+import RaisedButton from 'material-ui/RaisedButton';
 
 export default class Task extends React.Component{
   constructor(props) {
@@ -21,8 +22,7 @@ export default class Task extends React.Component{
   render() {
     let tasks = this.state.tasks || []
     let tableHeaderLabels = t("faq_statistic.list.headers");
-
-    let tableItems = tasks.map(function(task, idx) {
+    let tableItems = tasks.map((task, idx) => {
       return (
         <TableRow key={idx}>
           <TableRowColumn>{task.status}</TableRowColumn>
@@ -32,6 +32,13 @@ export default class Task extends React.Component{
           <TableRowColumn>{task.estimate_time}</TableRowColumn>
           <TableRowColumn>
             <div className={"badge-custom " + task.priority.toLowerCase()}>{task.priority}</div>
+          </TableRowColumn>
+
+          <TableRowColumn>
+            <RaisedButton
+              label = "Update"
+              primary={true}
+              onClick={() => this.props.onUpdateTask(task)}/>
           </TableRowColumn>
         </TableRow>
       );
@@ -46,6 +53,7 @@ export default class Task extends React.Component{
               <TableHeaderColumn>{"Due date"}</TableHeaderColumn>
               <TableHeaderColumn>{"Estimate time"}</TableHeaderColumn>
               <TableHeaderColumn>{"Priority"}</TableHeaderColumn>
+              <TableHeaderColumn>{"Action"}</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody

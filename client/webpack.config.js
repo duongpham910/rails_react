@@ -14,17 +14,17 @@ module.exports = {
   resolve: {
     extensions: ["", ".js", ".jsx"]
   },
-   module: {
-        loaders: [
-            {
-                test: /\.js?/,
-                loader: "babel-loader",
-                query: {
-                    presets: ["react", "es2015", "stage-2"]
-                }
+  module: {
+    loaders: [
+        {
+            test: /\.js?/,
+            loader: "babel-loader",
+            query: {
+                presets: ["react", "es2015", "stage-2"]
             }
-        ]
-    },
+        }
+    ]
+  },
   plugins: [
      new webpack.ProvidePlugin({
        React: "react",

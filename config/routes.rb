@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "root#home"
 
   namespace :api do
-    resources :tasks, only: [:index, :create]
+    resources :tasks, expect: [:new, :edit]
   end
 
   get "*path", to: "root#home"  #redirect all your request to single page
