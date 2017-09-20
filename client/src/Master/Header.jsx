@@ -12,22 +12,12 @@ export default class Header extends React.Component{
   }
 
   handleTouchMenu = (e, menuItem) => {
-    this.transitionTo(menuItem.props.value);
+    Helper.transitionTo(menuItem.props.value);
   };
-
-  transitionTo(pathName, state = {}) {
-    let location = {pathname: pathName};
-    location['state'] = state;
-    browserHistory.push(location);
-  }
-
-  getCurrentPath() {
-    return browserHistory.getCurrentLocation().pathname;
-  }
 
   renderMenuItem(item, transitionTo, icon, isCustomIcon) {
     let isActive;
-    isActive = (this.getCurrentPath() + '/').search(item + '/') !== -1;
+    isActive = (Helper.getCurrentPath() + '/').search(item + '/') !== -1;
     let menuItemIcon = isCustomIcon ?
       <i className={icon + (isActive ? '-active' : '')}/> :
       <i className="material-icons">{icon}</i>;
@@ -59,7 +49,7 @@ export default class Header extends React.Component{
             className="default-cursor"
           >
             {this.renderMenuItem('Home','/','home')}
-            {this.renderMenuItem('Task','/task','work')}
+            {this.renderMenuItem('Task','/tasks','work')}
             {this.renderMenuItem('About','/about','favorite')}
           </mui.Menu>
         </div>

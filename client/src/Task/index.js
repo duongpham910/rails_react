@@ -15,10 +15,10 @@ export default class Task extends React.Component{
   }
 
   componentDidMount() {
-    this.getTasks();
+    this.loadTasks();
   }
 
-  getTasks = () => {
+  loadTasks = () => {
     API.Task.getListTask((status, responseData) => {
       if (!status) return;
       this.setState({
@@ -27,13 +27,27 @@ export default class Task extends React.Component{
     });
   }
 
+  handleNewTask = () => {
+    Helper.transitionTo('/tasks/new')
+  }
+
+  handleUpdateTask = (item) => {
+    Helper.transitionTo(`/tasks/${item.id}/edit`);
+  }
+
   render() {
     let stateObject = this.state.tasks
     return(
       <div>
-        <RaisedButton label="Primary" primary={true}/>
+        <RaisedButton
+          label="Create new task"
+          primary={true}
+          onClick={this.handleNewTask}
+        />
         <div>
-          <ListTask tasks={stateObject} />
+          <ListTask
+            tasks={stateObject}
+            onUpdateTask={this.handleUpdateTask} />
         </div>
       </div>
     );

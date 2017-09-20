@@ -11,10 +11,35 @@ export default class Task extends React.Component{
     };
   }
 
+  componentDidMount() {
+    if (this.props.params.id) {
+      API.Task.loadTask((status, data) => {
+        data.task.due_date = new Date(data.task.due_date);
+        this.setState({
+          task: data.task
+        });
+      }, this.props.params.id)
+    }
+  }
+
   handleSubmitTask = () => {
-    API.Task.createTask((status, responseData) => {
-      console.log(status+ " " + responseData);
-    }, this.state.task);
+    if (this.props.params.id) {
+      API.Task.updateTask(this.handleSendTaskCallBack, this.state.task);
+    } else {
+      API.Task.createTask(this.handleSendTaskCallBack, this.state.task);
+    }
+  }
+
+  handleDeleteTask = () => {
+    API.Task.deleteTask(this.handleSendTaskCallBack, this.props.params.id);
+  }
+
+  handleSendTaskCallBack = (status, data) => {
+    if (status == true) {
+      Helper.transitionTo('/tasks')
+    } else {
+      console.log("Do something")
+    }
   }
 
   handleChangeTextInput = (fieldName, value) => {
@@ -62,6 +87,13 @@ export default class Task extends React.Component{
             backgroundColor="rgb(137, 195, 235)"
             onClick={this.handleSubmitTask}
           />
+          {this.props.params.id ?
+            <RaisedButton
+              label="Delete"
+              backgroundColor="rgb(137, 195, 235)"
+              onClick={this.handleDeleteTask}
+            /> : null
+          }
         </div>
       </div>
     );

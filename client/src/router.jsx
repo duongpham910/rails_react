@@ -9,9 +9,10 @@ import TaskForm from './Task/Form/index';
 const router = (
   <Router history={browserHistory}>
     <Route path="/" component={Main}>
-      <Route path="/task" component={Task} />
-      <Route path="/about" component={About} />
-      <Route path="/task/new" component={TaskForm} />
+      <Route path="tasks" component={Task} />
+      <Route path="about" component={About} />
+      <Route path="tasks/new" component={TaskForm} />
+      <Route path="tasks/:id/edit" component={TaskForm} />
     </Route>
   </Router>
 );

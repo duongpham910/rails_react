@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import router from "./router"
+import Helper from "./Helper";
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -12,7 +13,7 @@ $(document).on('ready', function() {
     },
   });
 
-  //ReactDOM.render(, document.getElementById('react-helper'));
+  ReactDOM.render(<Helper />, document.getElementById('react-helper'));
   ReactDOM.render(router, document.getElementById('react-wrapper'));
 });
 
