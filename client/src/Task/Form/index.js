@@ -31,14 +31,19 @@ export default class Task extends React.Component{
   }
 
   handleDeleteTask = () => {
-    API.Task.deleteTask(this.handleSendTaskCallBack, this.props.params.id);
+    Helper.showConfirm("Delete Task", "Do you want to delete task", () =>{
+      API.Task.deleteTask(this.handleSendTaskCallBack, this.props.params.id);
+    })
   }
 
   handleSendTaskCallBack = (status, data) => {
     if (status == true) {
       Helper.transitionTo('/tasks')
     } else {
-      console.log("Do something")
+      this.setState({
+        errors: data
+      });
+      Helper.showErrors("Something when wrong")
     }
   }
 
@@ -90,7 +95,8 @@ export default class Task extends React.Component{
           {this.props.params.id ?
             <RaisedButton
               label="Delete"
-              backgroundColor="rgb(137, 195, 235)"
+              className="btn-delete"
+              backgroundColor="#ee5351"
               onClick={this.handleDeleteTask}
             /> : null
           }
